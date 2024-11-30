@@ -27,7 +27,7 @@ const additionalServicesData = [
   { id: 'engagement', name: 'Engagement', price: 35000, badge: 'Popular', badgeColor: 'blue' },
   { id: 'customerConnection', name: 'Customer Connection', price: 65000, badge: 'High Value', badgeColor: 'purple' },
   { id: 'lostAndFound', name: 'Lost & Found', price: 15000},
-  { id: 'integratedWarranty', name: 'Integrated Warranty & Service', price: 72000, badge: 'Cost Saver', badgeColor: 'green' },
+  { id: 'integratedWarranty', name: 'Integrated Warranty & Service', price: 72000},
 ];
 
 
@@ -391,22 +391,32 @@ const EnterpriseQuoteBuilder = () => {
 
 <div className="bg-white shadow-md rounded-lg p-4">
   <h3 className="text-lg font-semibold mb-4">Cost Summary</h3>
+
+  {/* Platform Fee */}
   <div className="flex justify-between mb-2">
-    <span className="text-gray-600">Annual Cost:</span>
-    <span className="text-gray-800 font-bold">${formatWithCommas(Math.floor(totalCost))}</span>
+    <span className="text-gray-600">Platform Fee:</span>
+    <span className="text-gray-800 font-bold">${formatWithCommas(Math.floor(platformFee))}</span>
   </div>
+
+  {/* Variable Fee */}
   <div className="flex justify-between mb-2">
-    <span className="text-gray-600">Monthly Cost:</span>
-    <span className="text-gray-800 font-bold">${formatWithCommas(Math.floor(totalCost / 12))}</span>
+    <span className="text-gray-600">Variable Fee:</span>
+    <span className="text-gray-800 font-bold">
+  ${Math.floor((idCount - currentTier?.min || 0) / 1000 * currentTier?.pricePer1000)}
+</span>
   </div>
+
+  {/* Additional Services Fee */}
   <div className="flex justify-between mb-2">
-  <span className="text-gray-600">Cost per 1,000 IDs:</span>
-  <span className="text-gray-800 font-bold">${(totalCost / idCount * 1000).toFixed(2)}</span>
-</div>
-<div className="flex justify-between">
-  <span className="text-gray-600">Cost per Label:</span>
-  <span className="text-gray-800 font-bold">${(totalCost / idCount).toFixed(6)}</span>
-</div>
+    <span className="text-gray-600">Additional Services Fee:</span>
+    <span className="text-gray-800 font-bold">${formatWithCommas(Math.floor(additionalServiceFee))}</span>
+  </div>
+
+  {/* Total Cost */}
+  <div className="flex justify-between mb-2">
+    <span className="text-gray-600">Total Annual Cost:</span>
+    <span className="text-gray-800 font-bold">${formatWithCommas(Math.floor(platformFee + variableFee + additionalServiceFee))}</span>
+  </div>
 </div>
 
 <button
