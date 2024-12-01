@@ -392,39 +392,46 @@ const EnterpriseQuoteBuilder = () => {
 <div className="bg-white shadow-md rounded-lg p-4">
   <h3 className="text-lg font-semibold mb-4">Cost Summary</h3>
 
-  {/* Platform Fee */}
-  <div className="flex justify-between mb-2">
-    <span className="text-gray-600">Platform Fee:</span>
-    <span className="text-gray-800 font-bold">${formatWithCommas(Math.floor(platformFee))}</span>
-  </div>
+  {/* ${formatWithCommas(
+    isYearly
+      ? false
+      : false
+  )}*/}
 
-  {/* Variable Fee */}
-  <div className="flex justify-between mb-2">
-    <span className="text-gray-600">Variable Fee:</span>
-    <span className="text-gray-800 font-bold">
-  ${Math.floor((idCount - currentTier?.min || 0) / 1000 * currentTier?.pricePer1000)}
-</span>
-  </div>
-
-  {/* Additional Services Fee */}
-  <div className="flex justify-between mb-2">
-    <span className="text-gray-600">Additional Services Fee:</span>
-    <span className="text-gray-800 font-bold">${formatWithCommas(Math.floor(additionalServiceFee))}</span>
-  </div>
+  
 
   {/* Total Cost */}
-  <div className="flex justify-between mb-2">
+<div className="flex items-center justify-between mb-2">
+  <span className="text-gray-600">Subscription Fee:</span>
+  <div className="flex items-baseline">
+    <span className="text-gray-800 font-bold">
+      ${formatWithCommas(isYearly ? (Math.floor(platformFee) + Math.floor((idCount - currentTier?.min || 0) / 1000 * currentTier?.pricePer1000) + Math.floor(additionalServiceFee)) : Math.floor(platformFee / 12))}
+    </span>
+    <span className="text-sm text-gray-600 ml-2">
+      {isYearly ? 'per year' : 'per month'}
+    </span>
+  </div>
+</div>
+
+  {/* Total Cost */}
+  <div className="flex items-center justify-between mb-2">
+  <span className="text-gray-600">Price per 1,000 IDs:</span>
+  <div className="flex items-baseline">
+  <span className="text-gray-800 font-bold">
+      ${(Math.round(Math.floor(platformFee) + Math.floor((idCount - currentTier?.min || 0) / 1000 * currentTier?.pricePer1000) + Math.floor(additionalServiceFee)) / (idCount/1000) )}
+    </span>
+    <span className="text-sm text-gray-600 ml-2">
+      {isYearly ? 'per year' : 'per month'}
+    </span>
+  </div>
+</div>
+
+  {/* Total Cost */}
+  <div className="flex justify-right mb-2">
     <span className="text-gray-600">Total Annual Cost:</span>
     <span className="text-gray-800 font-bold">${formatWithCommas(Math.floor(platformFee + variableFee + additionalServiceFee))}</span>
   </div>
 </div>
-
-<button
-  className="w-full bg-blue-600 text-white py-3 rounded mt-6 hover:bg-blue-700 transition duration-200"
-  title="This feature is coming soon!" onClick={generatePDF}
->
-  Download Quote (Coming Soon)
-</button>
 
       </div>
     </div>
