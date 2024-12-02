@@ -425,7 +425,7 @@ const EnterpriseQuoteBuilder = () => {
   <span className="text-gray-600">Price per 1,000 IDs:</span>
   <div className="flex items-baseline">
   <span className="text-gray-800 font-bold">
-      ${(Math.ceil(totalSubscriptionCost / (idCount/1000)) )}
+    ${(totalSubscriptionCost / (idCount / 1000)).toFixed(2)}
     </span>
     <span className="text-sm text-gray-600 ml-2">
      per 1,000
