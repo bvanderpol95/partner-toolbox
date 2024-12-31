@@ -4,11 +4,11 @@ const formatWithCommas = (num) => (!num ? '' : num.toString().replace(/\B(?=(\d{
 const parseNumber = (num) => parseInt(num.replace(/,/g, ''), 10) || 0;
 
 const tiers = [
-  { label: 'Tier 1', min: 0, max: 499999, pricePer1000: 8, inclusive: 0 },
-  { label: 'Tier 2', min: 500000, max: 4999999, pricePer1000: 6, inclusive: 500000 },
-  { label: 'Tier 3', min: 5000000, max: 10000000, pricePer1000: 4, inclusive: 5000000 },
-  { label: 'Tier 4', min: 10000001, max: 50000000, pricePer1000: 2.75, inclusive: 10000000 },
-  { label: 'Tier 5', min: 50000001, max: 200000000, pricePer1000: 1.25, inclusive: 50000000 },
+  { label: 'Tier 1', min: 0, max: 499999, pricePer1000: 4.5, inclusive: 0, price: 13188 },
+  { label: 'Tier 2', min: 500000, max: 4999999, pricePer1000: 3.25, inclusive: 500000, price: 17188},
+  { label: 'Tier 3', min: 5000000, max: 10000000, pricePer1000: 1.75, inclusive: 5000000, price: 31813},
+  { label: 'Tier 4', min: 10000001, max: 50000000, pricePer1000: 1.25, inclusive: 10000000, price: 38813},
+  { label: 'Tier 5', min: 50000001, max: 200000000, pricePer1000: 0.5, inclusive: 50000000, price: 88813},
 ];
 
 const additionalServicesData = [
@@ -46,7 +46,7 @@ const EnterpriseQuoteBuilder = () => {
   }, []);
 
   const configurationOptions = [
-    { id: 'multiLanguage', name: 'Multi-language Support', price: 100, type: 'boolean' },
+    { id: 'multiLanguage', name: 'Multilanguage support', price: 75, type: 'boolean' },
     { id: 'customDomain', name: 'Custom Domain', price: 50, type: 'number' },
     { id: 'additionalBrands', name: 'Additional Brands', price: 50, type: 'number' },
   ];
@@ -80,10 +80,15 @@ const EnterpriseQuoteBuilder = () => {
   };
 
   const calculatePlatformFee = () => {
-    const baseFee = 13188;
-    const applicableTiers = tiers.filter((tier) => idCount >= tier.min);
-    return baseFee * applicableTiers.length;
+    const applicableTier = tiers.find((tier) => idCount >= tier.min && idCount <= tier.max);
+  
+    // If no tier matches, return 0
+    if (!applicableTier) return 0;
+  
+    // Return the price for the matched tier
+    return isYearly ? applicableTier.price : Math.ceil(applicableTier.price);
   };
+  
 
   const calculateVariableFee = () => {
     let remainingVolume = idCount;
@@ -133,7 +138,8 @@ const EnterpriseQuoteBuilder = () => {
     };
   };
 
-  const { platformFee, variableFee, additionalServiceFee, totalCost } = calculateTotalCost();
+// At the top, where you destructure costs
+const { platformFee, variableFee, additionalServiceFee, configurationFee, totalCost } = calculateTotalCost();
 
   const totalSubscriptionCost = Math.floor(platformFee / 12) +
     Math.floor((((idCount - (currentTier?.min || 0)) / 1000) * (currentTier?.pricePer1000 || 0)) / 12) +
@@ -308,97 +314,90 @@ const EnterpriseQuoteBuilder = () => {
 
 </div>
 
-<div>
-  <h3 className="text-md font-semibold mb-4 text-white">Modules</h3>
-  <div className="space-y-2">
-    {additionalServicesData.map((service) => (
-      <div
-        key={service.id}
-        className={`relative flex flex-col ${
-          service.alwaysEnabled ? 'bg-blue-900' : 'bg-gray-800'
-        } p-4 rounded-lg border border-gray-700 shadow-sm hover:border-blue-500 transition-colors`}
-        style={{ minHeight: '70px' }}
-      >
-        <div className="flex items-center justify-between mb-1">
-          <div className="flex items-center">
-            <span className="block font-bold text-white">{service.name}</span>
-            {service.badge && (
-              <span
-                className={`ml-2 px-2 py-1 text-xs font-bold text-white rounded-full ${
-                  service.badgeColor === 'blue'
-                    ? 'bg-blue-500'
-                    : service.badgeColor === 'purple'
-                    ? 'bg-purple-500'
-                    : 'bg-gray-500'
-                }`}
-              >
-                {service.badge}
-              </span>
-            )}
-            {/* Hide price display for Core module */}
-            {!service.alwaysEnabled && (
-              <span className="ml-2 text-sm text-gray-400">
-                {currency}{formatWithCommas(isYearly ? service.price * 12 : service.price)}
-                {isYearly ? '/year' : '/month'}
-              </span>
-            )}
+
+<div className="mt-8">
+    <h3 className="text-md font-semibold mb-4 text-white">Modules</h3>
+    <div className="space-y-2">
+      {additionalServicesData.map((service) => (
+        <div
+          key={service.id}
+          className={`relative ${
+            service.alwaysEnabled ? 'bg-blue-900' : 'bg-gray-800'
+          } p-4 rounded-lg border border-gray-700 shadow-sm hover:border-blue-500 transition-colors`}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <div>
+                <div className="flex items-center space-x-2">
+                  <span className="font-bold text-white">{service.name}</span>
+                  {service.badge && (
+                    <span className={`px-2 py-1 text-xs font-bold text-white rounded-full ${
+                      service.badgeColor === 'blue' ? 'bg-blue-500' : 
+                      service.badgeColor === 'purple' ? 'bg-purple-500' : 'bg-gray-500'
+                    }`}>
+                      {service.badge}
+                    </span>
+                  )}
+                </div>
+                {!service.alwaysEnabled && (
+                  <span className="text-sm text-gray-400 mt-1 block">
+                    {currency}{formatWithCommas(isYearly ? service.price * 12 : service.price)}
+                    {isYearly ? '/year' : '/month'}
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {!service.alwaysEnabled && service.id !== 'additionalBrands' && (
+  <div
+    onClick={() => setAdditionalServices(prev => ({...prev, [service.id]: !prev[service.id]}))}
+    className={`w-10 h-5 flex ${
+      additionalServices[service.id] ? 'bg-blue-600' : 'bg-gray-500'
+    } rounded-full p-0.5 cursor-pointer`}
+  >
+    <div className={`bg-white w-4 h-4 rounded-full shadow-md transform duration-200 ease-in-out ${
+      additionalServices[service.id] ? 'translate-x-5' : 'translate-x-0'
+    }`} />
+  </div>
+)}
           </div>
 
-          {!service.alwaysEnabled && service.id !== 'additionalBrands' && (
-            <div
-              onClick={() =>
-                setAdditionalServices((prev) => ({
-                  ...prev,
-                  [service.id]: !prev[service.id],
-                }))
-              }
-              className={`w-10 h-5 flex items-center ${
-                additionalServices[service.id] ? 'bg-blue-600' : 'bg-gray-500'
-              } rounded-full p-1 cursor-pointer`}
-            >
-              <div
-                className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${
-                  additionalServices[service.id] ? 'translate-x-5' : ''
-                }`}
-              ></div>
+          {service.id === 'additionalBrands' && (
+            <div className="flex items-center mt-2 justify-between">
+              <label htmlFor="additionalBrandsInput" className="text-gray-300">
+                Number of Additional Brands:
+              </label>
+              <input
+                id="additionalBrandsInput"
+                type="text"
+                value={additionalServices.additionalBrands || ''}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {
+                    setAdditionalServices((prev) => ({
+                      ...prev,
+                      additionalBrands: value === '' ? 0 : parseInt(value, 10),
+                    }));
+                  }
+                }}
+                onBlur={(e) => {
+                  if (e.target.value === '') {
+                    setAdditionalServices((prev) => ({
+                      ...prev,
+                      additionalBrands: 0,
+                    }));
+                  }
+                }}
+                className="w-16 p-1 rounded bg-gray-700 text-white text-right appearance-none"
+                style={{ MozAppearance: 'textfield' }}
+              />
             </div>
           )}
         </div>
-        {service.id === 'additionalBrands' && (
-          <div className="flex items-center mt-2 justify-between">
-            <label htmlFor="additionalBrandsInput" className="text-gray-300">
-              Number of Additional Brands:
-            </label>
-            <input
-              id="additionalBrandsInput"
-              type="text"
-              value={additionalServices.additionalBrands || ''}
-              onChange={(e) => {
-                const value = e.target.value;
-                if (/^\d*$/.test(value)) {
-                  setAdditionalServices((prev) => ({
-                    ...prev,
-                    additionalBrands: value === '' ? 0 : parseInt(value, 10),
-                  }));
-                }
-              }}
-              onBlur={(e) => {
-                if (e.target.value === '') {
-                  setAdditionalServices((prev) => ({
-                    ...prev,
-                    additionalBrands: 0,
-                  }));
-                }
-              }}
-              className="w-16 p-1 rounded bg-gray-700 text-white text-right appearance-none"
-              style={{ MozAppearance: 'textfield' }}
-            />
-          </div>
-        )}
-      </div>
-    ))}
-  </div>
+      ))}
+    </div>
 </div>
+
 
       </div>
 
@@ -433,6 +432,8 @@ const EnterpriseQuoteBuilder = () => {
           </div>
         </div>
 
+        
+
         <div className="bg-white shadow-md rounded-lg p-4 flex justify-between items-center mb-4">
           <div>
             <h3 className="text-lg font-semibold mb-2">Usage Fee</h3>
@@ -452,10 +453,46 @@ const EnterpriseQuoteBuilder = () => {
             <span className="text-sm text-gray-600 ml-2">{isYearly ? 'per year' : 'per month'}</span>
           </div>
         </div>
-
         <div className="bg-white shadow-md rounded-lg p-4 flex justify-between items-start mb-4">
-          <div>
-            <h3 className="text-lg font-semibold mb-2">Additional Modules</h3>
+  <div>
+    <h3 className="text-lg font-semibold mb-2">Configuration Options</h3>
+    {configurationOptions.some((option) => configuration[option.id]) || configuration.additionalBrands > 0 ? (
+      <ul className="list-disc list-inside text-gray-600 text-sm">
+        {configurationOptions.map((option) => {
+          if (option.type === 'boolean' && configuration[option.id]) {
+            return (
+              <li key={option.id} className="text-gray-800 font-regular">
+                {option.name} at {currency}{formatWithCommas(option.price)}
+                {isYearly ? ' per year' : ' per month'}
+              </li>
+            );
+          }
+          if (option.type === 'number' && configuration[option.id] > 0) {
+            return (
+              <li key={option.id} className="text-gray-800 font-regular">
+                {option.name}: {configuration[option.id]} x {currency}{option.price}
+              </li>
+            );
+          }
+          return null;
+        })}
+      </ul>
+    ) : (
+      <p className="text-gray-600 text-sm">No additional configurations</p>
+    )}
+  </div>
+  <div className="flex items-center">
+    <p className="text-xl font-bold text-gray-800">
+      {currency}{formatWithCommas(isYearly ? configurationFee * 12 : configurationFee)}
+    </p>
+    <span className="text-sm text-gray-600 ml-2">
+      {isYearly ? 'per year' : 'per month'}
+    </span>
+  </div>
+</div>
+        <div className="bg-white shadow-md rounded-lg p-4 flex justify-between items-start mb-4">
+          <div> 
+            <h3 className="text-lg font-semibold mb-2">Modules</h3>
             {Object.keys(additionalServices).some((key) => additionalServices[key]) ? (
               <ul className="list-disc list-inside text-gray-600 text-sm">
                 {Object.keys(additionalServices)
@@ -464,7 +501,8 @@ const EnterpriseQuoteBuilder = () => {
                     const service = additionalServicesData.find((service) => service.id === key);
                     return (
                       <li key={key} className="text-gray-800 font-regular">
-                        {service.name}
+                        <span className="text-sm text-gray-600 ml-2">
+                        {service.name} at {currency}{formatWithCommas(service.price)} {isYearly ? 'per year' : 'per month'}</span>
                       </li>
                     );
                   })}
