@@ -11,6 +11,217 @@ const tiers = [
   { label: 'Tier 5', min: 50000001, max: 200000000, pricePer1000: 0.5, inclusive: 50000000, price: 88813},
 ];
 
+const integrationData = [
+  {
+    id: 'salesforce',
+    name: 'Salesforce',
+    type: 'Advanced',
+    price: 500,
+    link: 'https://www.salesforce.com',
+    logo: 'https://a.sfdcstatic.com/shared/images/c360-nav/salesforce-with-type-logo.svg',
+  },
+  {
+    id: 'shopify',
+    name: 'Shopify',
+    type: 'Standard',
+    price: 300,
+    link: 'https://www.shopify.com',
+    logo: 'https://cdn3.iconfinder.com/data/icons/social-media-2068/64/_shopping-512.png',
+  },
+  {
+    id: 'zapier',
+    name: 'Apparelmagic',
+    type: 'Standard',
+    price: 200,
+    link: 'https://www.zapier.com',
+    logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRM1ShWcfh0R2JFD20tgmRxjGtI26g_Sj9SXA&s',
+  },
+  {
+    "id": "fashionerp1",
+    "name": "FashionERP 1",
+    "type": "Advanced",
+    "price": 500,
+    "link": "https://www.fashionerp1.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "fashionerp2",
+    "name": "FashionERP 2",
+    "type": "Standard",
+    "price": 300,
+    "link": "https://www.fashionerp2.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "plmexpert",
+    "name": "PLM Expert",
+    "type": "Advanced",
+    "price": 550,
+    "link": "https://www.plmexpert.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "textilepro",
+    "name": "Textile Pro",
+    "type": "Standard",
+    "price": 250,
+    "link": "https://www.textilepro.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "garmentmaster",
+    "name": "Garment Master",
+    "type": "Standard",
+    "price": 280,
+    "link": "https://www.garmentmaster.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "plmmagic",
+    "name": "PLM Magic",
+    "type": "Advanced",
+    "price": 450,
+    "link": "https://www.plmmagic.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "stylemanager",
+    "name": "Style Manager",
+    "type": "Standard",
+    "price": 320,
+    "link": "https://www.stylemanager.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "fashionmaster",
+    "name": "Fashion Master",
+    "type": "Advanced",
+    "price": 600,
+    "link": "https://www.fashionmaster.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "garmenttracker",
+    "name": "Garment Tracker",
+    "type": "Standard",
+    "price": 200,
+    "link": "https://www.garmenttracker.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "textilesuite",
+    "name": "Textile Suite",
+    "type": "Advanced",
+    "price": 520,
+    "link": "https://www.textilesuite.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "supplytrace",
+    "name": "Supply Trace",
+    "type": "Standard",
+    "price": 300,
+    "link": "https://www.supplytrace.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "appareltrack",
+    "name": "Apparel Track",
+    "type": "Advanced",
+    "price": 400,
+    "link": "https://www.appareltrack.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "fashiontrace",
+    "name": "Fashion Trace",
+    "type": "Standard",
+    "price": 220,
+    "link": "https://www.fashiontrace.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "designhub",
+    "name": "Design Hub",
+    "type": "Advanced",
+    "price": 470,
+    "link": "https://www.designhub.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "fashionsync",
+    "name": "Fashion Sync",
+    "type": "Standard",
+    "price": 280,
+    "link": "https://www.fashionsync.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "plmflow",
+    "name": "PLM Flow",
+    "type": "Advanced",
+    "price": 480,
+    "link": "https://www.plmflow.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "stitchsuite",
+    "name": "Stitch Suite",
+    "type": "Standard",
+    "price": 240,
+    "link": "https://www.stitchsuite.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "materialsync",
+    "name": "Material Sync",
+    "type": "Advanced",
+    "price": 420,
+    "link": "https://www.materialsync.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "productionflow",
+    "name": "Production Flow",
+    "type": "Standard",
+    "price": 260,
+    "link": "https://www.productionflow.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "garmentlink",
+    "name": "Garment Link",
+    "type": "Advanced",
+    "price": 510,
+    "link": "https://www.garmentlink.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "plmpro",
+    "name": "PLM Pro",
+    "type": "Standard",
+    "price": 270,
+    "link": "https://www.plmpro.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "supplychain",
+    "name": "Supply Chain",
+    "type": "Advanced",
+    "price": 490,
+    "link": "https://www.supplychain.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+  {
+    "id": "textiledesign",
+    "name": "Textile Design",
+    "type": "Standard",
+    "price": 300,
+    "link": "https://www.textiledesign.com",
+    "logo": "https://cdn.prod.website-files.com/63ae6f1bb966f5c640b170b9/661a3347d72d6cda33fa66d8_Logo%20Main.svg"
+  },
+];
+
 const additionalServicesData = [
   { id: 'core', name: 'Core', price: 0, alwaysEnabled: true },
   { id: 'customerConnection', name: 'Consumer Connection', price: 249, badge: 'Popular', badgeColor: 'blue' },
@@ -21,6 +232,26 @@ const additionalServicesData = [
 ];
 
 const EnterpriseQuoteBuilder = () => {
+
+  const [selectedIntegrations, setSelectedIntegrations] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [filter, setFilter] = useState('All'); // Filter state for integrations
+  const [searchQuery, setSearchQuery] = useState(''); // Search state
+  const [currentPage, setCurrentPage] = useState(1); // Pagination state
+  const integrationsPerPage = 15; // Number of integrations per page
+
+  const toggleIntegration = (id) => {
+    setSelectedIntegrations((prev) =>
+      prev.includes(id) ? prev.filter((integration) => integration !== id) : [...prev, id]
+    );
+  };
+
+  const calculateIntegrationFee = () => {
+    return selectedIntegrations.reduce((total, id) => {
+      const integration = integrationData.find((int) => int.id === id);
+      return total + (integration ? integration.price : 0);
+    }, 0);
+  };
   const [idCount, setIdCount] = useState(0);
   const [isYearly, setIsYearly] = useState(false);
   const [currency, setCurrency] = useState('€');
@@ -32,6 +263,17 @@ const EnterpriseQuoteBuilder = () => {
     lostAndFound: false,
   });
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const filteredIntegrations = integrationData.filter((integration) => {
+    if (filter === 'All') return true;
+    return integration.type === filter;
+  });
+
+  const totalPages = Math.ceil(filteredIntegrations.length / integrationsPerPage);
+  const displayedIntegrations = filteredIntegrations.slice(
+    (currentPage - 1) * integrationsPerPage,
+    currentPage * integrationsPerPage
+  );
 
   // Move the configuration state into the component
   const [configuration, setConfiguration] = useState({
@@ -106,6 +348,7 @@ const EnterpriseQuoteBuilder = () => {
   const calculateTotalCost = () => {
     const platformFee = calculatePlatformFee();
     const variableFee = calculateVariableFee();
+    const integrationFee = calculateIntegrationFee();
     const additionalServiceFee = Object.keys(additionalServices).reduce(
       (total, key) => {
         const service = additionalServicesData.find((s) => s.id === key);
@@ -134,7 +377,7 @@ const EnterpriseQuoteBuilder = () => {
       variableFee,
       additionalServiceFee,
       configurationFee,
-      totalCost: platformFee + variableFee + additionalServiceFee + configurationFee,
+      totalCost: platformFee + variableFee + additionalServiceFee + configurationFee + integrationFee,
     };
   };
 
@@ -143,7 +386,7 @@ const { platformFee, variableFee, additionalServiceFee, configurationFee, totalC
 
   const totalSubscriptionCost = Math.floor(platformFee / 12) +
     Math.floor((((idCount - (currentTier?.min || 0)) / 1000) * (currentTier?.pricePer1000 || 0)) / 12) +
-    Math.floor(additionalServiceFee);
+    Math.floor(additionalServiceFee) + Math.floor(configurationFee);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 relative overflow-visible">
@@ -314,6 +557,134 @@ const { platformFee, variableFee, additionalServiceFee, configurationFee, totalC
 
 </div>
 
+{/* Integrations Section */}
+<div className="mt-8">
+  <h3 className="text-md font-semibold mb-4 text-white">Integrations</h3>
+  <div className="space-y-2">
+    {[
+      ...integrationData.filter((int) => selectedIntegrations.includes(int.id)), // Selected integrations
+      ...integrationData.filter((int) => !selectedIntegrations.includes(int.id)), // Non-selected integrations
+    ]
+      .slice(0, 3) // Show only the first 3 integrations
+      .map((integration) => (
+        <div
+          key={integration.id}
+          className="relative bg-gray-800 p-4 rounded-lg border border-gray-700 shadow-sm hover:border-blue-500 transition-colors flex items-center"
+        >
+          <img
+            src={integration.logo}
+            alt={integration.name}
+            className="w-12 h-12 mr-4 rounded"
+          />
+          <div className="flex-grow">
+            <h4 className="font-bold text-white">{integration.name}</h4>
+            <p className="text-sm text-gray-400">{integration.type}</p>
+            <p className="text-sm text-gray-400 mt-1">
+              {currency}{formatWithCommas(integration.price)} {isYearly ? '/year' : '/month'}
+            </p>
+          </div>
+          <div
+            onClick={() => toggleIntegration(integration.id)}
+            className={`w-10 h-5 flex ${
+              selectedIntegrations.includes(integration.id) ? 'bg-blue-600' : 'bg-gray-500'
+            } rounded-full p-0.5 cursor-pointer`}
+          >
+            <div
+              className={`bg-white w-4 h-4 rounded-full shadow-md transform duration-200 ease-in-out ${
+                selectedIntegrations.includes(integration.id) ? 'translate-x-5' : 'translate-x-0'
+              }`}
+            />
+          </div>
+        </div>
+      ))}
+  </div>
+  <div className="text-right mb-4">
+    <button
+      onClick={() => setShowModal(true)}
+      className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 transition"
+    >
+      View All Integrations
+    </button>
+  </div>
+</div>
+
+    {showModal && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80">
+    <div className="bg-gray-900 w-11/12 md:w-2/3 lg:w-3/4 p-6 rounded-lg relative">
+      {/* Close Button (Red X) */}
+      <button
+        onClick={() => setShowModal(false)}
+        className="absolute top-4 right-4 text-red-500 text-2xl font-bold hover:text-red-700 transition"
+      >
+        &times;
+      </button>
+
+      {/* Modal Header with Search */}
+      <div className="mb-6">
+        <h2 className="text-lg font-bold mb-4 text-white">All Integrations</h2>
+        <input
+          type="text"
+          placeholder="Search integrations..."
+          className="w-full p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
+      {/* Integration List (Grid View) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        {displayedIntegrations.map((integration) => (
+          <div
+            key={integration.id}
+            className="bg-gray-800 p-4 rounded-lg shadow hover:shadow-lg hover:border-blue-500 border border-gray-700 transition"
+          >
+            <img
+              src={integration.logo}
+              alt={integration.name}
+              className="w-16 h-16 mx-auto mb-4 rounded"
+            />
+            <h4 className="text-center text-white font-bold">{integration.name}</h4>
+            <p className="text-center text-gray-400 text-sm">{integration.type}</p>
+            <p className="text-center text-gray-400 text-sm mt-2">
+              {currency}{formatWithCommas(integration.price)} {isYearly ? '/year' : '/month'}
+            </p>
+            <button
+              onClick={() => toggleIntegration(integration.id)}
+              className={`mt-4 w-full py-2 text-sm font-bold text-white rounded ${
+                selectedIntegrations.includes(integration.id)
+                  ? 'bg-blue-600 hover:bg-blue-500'
+                  : 'bg-gray-700 hover:bg-gray-600'
+              }`}
+            >
+              {selectedIntegrations.includes(integration.id) ? 'Remove' : 'Add'}
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="mt-6 flex justify-center items-center">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600"
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        <span className="mx-4 text-gray-400">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600"
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
 <div className="mt-8">
     <h3 className="text-md font-semibold mb-4 text-white">Modules</h3>
@@ -436,7 +807,7 @@ const { platformFee, variableFee, additionalServiceFee, configurationFee, totalC
 
         <div className="bg-white shadow-md rounded-lg p-4 flex justify-between items-center mb-4">
           <div>
-            <h3 className="text-lg font-semibold mb-2">Usage Fee</h3>
+            <h3 className="text-lg font-semibold mb-2">Workload Fee</h3>
             <p className="text-gray-600 text-sm">
               {formatWithCommas(idCount - currentTier?.min || 0)} IDs at {currency}
               {currentTier?.pricePer1000.toFixed(2)} per 1,000
